@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import Home from "./pages/Home";
 
 const App = () => {
   return (
-    <div className='bg-green-500'>App</div>
-  )
-}
+    <div>
+      <Home />
+    </div>
+  );
+};
 
-export default App
+export default App;
