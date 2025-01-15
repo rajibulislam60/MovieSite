@@ -9,6 +9,9 @@ export default {
           xl: "1180px",
         },
       },
+      backgroundImage: {
+        headerImg: "url('/src/assets/images/headerImg.jpg')",
+      },
     },
   },
   plugins: [],
