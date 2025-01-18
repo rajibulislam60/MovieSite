@@ -25,20 +25,27 @@ const TrendingMovie = () => {
           Trending
         </h2>
       </div>
-      <div className="grid grid-cols-5 gap-4">
-      {trendingShows.map((data) => (
-        <div className="w-full mt-6">
-          <img
-            className="w-full h-[80%] object-cover"
-            src="/src/assets/images/headerImg.jpg"
-            alt=""
-          />
-          <div>
-            <h3 className="text-[16px] font-semibold">My tiny senpai</h3>
-            <h4 className="text-[14px] font-normal">Dec 15, 2024</h4>
+      <div className="flex gap-3 overflow-x-auto scrollbar-hide mt-6">
+        {trendingShows.map((data) => (
+          <div
+            key={data.id}
+            className="w-[200px] h-[400px] flex-shrink-0 overflow-hidden"
+          >
+            <img
+              className="w-full h-[80%] object-cover"
+              src={`https://image.tmdb.org/t/p/w500${data.poster_path}`}
+              alt={data.title || data.name || "Trending Show"}
+            />
+            <div>
+              <h3 className="text-[16px] font-semibold">
+                {data.title || data.name || "No Title"}
+              </h3>
+              <h4 className="text-[14px] font-normal">
+                {data.release_date || data.first_air_date || "Unknown Date"}
+              </h4>
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
       </div>
     </div>
   );
