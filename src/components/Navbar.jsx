@@ -9,10 +9,18 @@ const Navbar = () => {
           <h2 className="text-[24px] font-bold leading-7">Secret Movie</h2>
           <div>
             <ul className="flex gap-3">
-              <li><Link to='/'>Home</Link></li>
-              <li><Link to='/movies'>Movies</Link></li>
-              <li><Link to='/tvshows'>TV Shows</Link></li>
-              <li>People</li>
+              <li>
+                <Link to="/">Home</Link>
+              </li>
+              <li>
+                <Link to="/movies">Movies</Link>
+              </li>
+              <li>
+                <Link to="/tvshows">TV Shows</Link>
+              </li>
+              <li>
+                <Link to="/people">People</Link>
+              </li>
               <li>More</li>
             </ul>
           </div>
