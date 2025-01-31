@@ -1,26 +1,39 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from "react";
 
 const Movies = () => {
-    let [movies, setMovies] = useState([])
+  let [movies, setMovies] = useState([]);
+  let [currentPage, setCurrentPage] = useState(1);
+  let [totalPages, setTotalPages] = useState(1);
 
-    const getMovies = async () => {
-        try {
-          await fetch(
-            "https://api.themoviedb.org/3/movie/now_playing?api_key=23cf808c614383d83cc32bec99a11a97"
-          )
-            .then((res) => res.json())
-            .then((json) => setMovies(json.results));
-        } catch (error) {
-          console.error(error);
-        }
-      };
-    
-      useEffect(() => {
-        getMovies();
-      }, []);
+  const getMovies = async (page) => {
+    try {
+      await fetch(
+        `https://api.themoviedb.org/3/movie/now_playing?api_key=23cf808c614383d83cc32bec99a11a97&page=${page}`
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          setMovies(data.results);
+          setTotalPages(data.total_pages);
+        });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    getMovies(currentPage);
+  }, [currentPage]);
+
+  let handlePrev = () => {
+    if (currentPage > 1) setCurrentPage(currentPage - 1);
+  };
+
+  let handleNext = () => {
+    if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+  };
   return (
-    <div className='container'>
-        <div>
+    <div className="container">
+      <div>
         <h2 className="text-[24px] font-bold leading-7 text-blue-950 mt-10">
           All Movie
         </h2>
@@ -47,8 +60,35 @@ const Movies = () => {
           </div>
         ))}
       </div>
+      <div className="flex justify-between items-center mt-6 mb-6">
+        <button
+          onClick={handlePrev}
+          disabled={currentPage === 1}
+          className={`px-4 py-2 mr-4 rounded text-white ${
+            currentPage === 1
+              ? "bg-gray-400 cursor-not-allowed"
+              : "bg-blue-600 hover:bg-blue-700"
+          }`}
+        >
+          Previous
+        </button>
+        <span className="text-gray-700 font-medium">
+          Page {currentPage} of {totalPages}
+        </span>
+        <button
+          onClick={handleNext}
+          disabled={currentPage === totalPages}
+          className={`px-4 py-2 ml-4 rounded text-white ${
+            currentPage === totalPages
+              ? "bg-gray-400 cursor-not-allowed"
+              : "bg-blue-600 hover:bg-blue-700"
+          }`}
+        >
+          Next
+        </button>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default Movies
+export default Movies;
